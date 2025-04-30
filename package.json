@@ -1,7 +1,7 @@
 {
-  "name": "bolt-ts-custom-function-template",
+  "name": "bolt-ts-custom-step-template",
   "version": "1.0.0",
-  "description": "A scaffold template for Slack apps",
+  "description": "A custom step template for Slack apps",
   "main": "dist/app.js",
   "scripts": {
     "build": "tsc",
@@ -20,10 +20,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/slack-samples/bolt-ts-custom-function-template.git"
+    "url": "https://github.com/slack-samples/bolt-ts-custom-step-template.git"
   },
   "bugs": {
-    "url": "https://github.com/slack-samples/bolt-ts-custom-function-template/issues"
+    "url": "https://github.com/slack-samples/bolt-ts-custom-step-template/issues"
   },
   "dependencies": {
     "@slack/bolt": "^4.2.1",

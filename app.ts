@@ -12,25 +12,25 @@ const app = new App({
 });
 
 /** Sample Function Listener */
-app.function('sample_function', async ({ client, inputs, fail, logger }) => {
+app.function('sample_step', async ({ client, inputs, fail, logger }) => {
   try {
     const { user_id } = inputs;
 
     await client.chat.postMessage({
       channel: user_id as string,
-      text: 'Click the button to signal the function has completed',
+      text: 'Click the button to signal the step has completed',
       blocks: [
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: 'Click the button to signal the function has completed',
+            text: 'Click the button to signal the step has completed',
           },
           accessory: {
             type: 'button',
             text: {
               type: 'plain_text',
-              text: 'Complete function',
+              text: 'Complete step',
             },
             action_id: 'sample_button',
           },
@@ -39,7 +39,7 @@ app.function('sample_function', async ({ client, inputs, fail, logger }) => {
     });
   } catch (error) {
     logger.error(error);
-    await fail({ error: `Failed to handle a function request: ${error}` });
+    await fail({ error: `Failed to handle a step request: ${error}` });
   }
 });
 
@@ -48,10 +48,10 @@ app.action<BlockAction>('sample_button', async ({ body, client, complete, fail, 
   const { channel, message, user } = body;
 
   try {
-    // Functions should be marked as successfully completed using `complete` or
+    // Steps should be marked as successfully completed using `complete` or
     // as having failed using `fail`, else they'll remain in an 'In progress' state.
     // Learn more at https://api.slack.com/automation/interactive-messages
-    // biome-ignore lint/style/noNonNullAssertion: we know this button comes from a function, so `fail` is available.
+    // biome-ignore lint/style/noNonNullAssertion: we know this button comes from a step, so `fail` is available.
     await complete!({ outputs: { user_id: user.id } });
 
     await client.chat.update({
@@ -59,12 +59,12 @@ app.action<BlockAction>('sample_button', async ({ body, client, complete, fail, 
       channel: channel!.id,
       // biome-ignore lint/style/noNonNullAssertion: we know this button was posted to a channel, so `message` is available.
       ts: message!.ts,
-      text: 'Function completed successfully!',
+      text: 'Step completed successfully!',
     });
   } catch (error) {
     logger.error(error);
-    // biome-ignore lint/style/noNonNullAssertion: we know this button comes from a function, so `fail` is available.
-    await fail!({ error: `Failed to handle a function request: ${error}` });
+    // biome-ignore lint/style/noNonNullAssertion: we know this button comes from a step, so `fail` is available.
+    await fail!({ error: `Failed to complete the step: ${error}` });
   }
 });
 
