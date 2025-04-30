@@ -39,7 +39,7 @@ app.function('sample_step', async ({ client, inputs, fail, logger }) => {
     });
   } catch (error) {
     logger.error(error);
-    fail({ error: `Failed to handle a step request: ${error}` });
+    await fail({ error: `Failed to handle a step request: ${error}` });
   }
 });
 
@@ -64,7 +64,7 @@ app.action<BlockAction>('sample_button', async ({ body, client, complete, fail, 
   } catch (error) {
     logger.error(error);
     // biome-ignore lint/style/noNonNullAssertion: we know this button comes from a step, so `fail` is available.
-    fail!({ error: `Failed to complete the step: ${error}` });
+    await fail!({ error: `Failed to complete the step: ${error}` });
   }
 });
 
