@@ -35,9 +35,9 @@
         "function_runtime": "remote"
     },
     "functions": {
-        "sample_function": {
-            "title": "Sample function",
-            "description": "Runs sample function",
+        "sample_step": {
+            "title": "Sample step",
+            "description": "Runs sample step",
             "input_parameters": {
                 "user_id": {
                     "type": "slack#/types/user_id",
@@ -52,7 +52,7 @@
                 "user_id": {
                     "type": "slack#/types/user_id",
                     "title": "User",
-                    "description": "User that completed the function",
+                    "description": "User that completed the step",
                     "is_required": true,
                     "name": "user_id"
                 }
